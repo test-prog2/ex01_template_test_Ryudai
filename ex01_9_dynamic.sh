@@ -30,13 +30,16 @@ for test_case in "${selected_cases[@]}"; do
      if [ -s "$temp_error" ]; then
         echo " 結果: エラー"
         echo "$(cat $temp_error)"
+        exit 1
     # 期待される出力とプログラムの出力を比較
     elif grep -q "$expect" "$temp_output"; then
         echo " 結果: 成功"
+        exit 0
     else
         echo " 結果: 失敗"
         echo " 実際の出力: "
         echo "$(cat $temp_output2)"
+        exit 1
     fi
     echo ""
 done

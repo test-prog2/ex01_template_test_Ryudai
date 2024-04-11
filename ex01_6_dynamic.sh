@@ -21,12 +21,15 @@ echo $input | ./ex01_6 > /dev/null 2> "$temp_error"
  if [ -s "$temp_error" ]; then
         echo " 結果: エラー"
         echo "$(cat $temp_error)"
+        exit 1
 # 期待される出力とプログラムの出力を比較
 elif diff -q temp_output.txt temp_expected.txt > /dev/null; then
     echo "全ての出力が期待される出力と一致しました。"
+    exit 0
 else
     echo "いくつかの出力が期待される出力と一致しませんでした。"
     diff temp_output.txt temp_expected.txt
+    exit 1
 fi
 
 # 一時ファイルを削除
